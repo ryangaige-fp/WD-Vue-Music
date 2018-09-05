@@ -89,6 +89,23 @@ let store = new vuex.Store({
         });
     },
 
+    addToPlaylist({ state, commit, dispatch }) {
+      db.collection("songs")
+        .where("songs", "==", state.playlist.id)
+        .get()
+        .then(querySnapShot => {
+          let songs = [];
+          querySnapShot.forEach(doc => {
+            if (doc.exist) {
+              let songs = doc.data();
+              songs.id = doc.id;
+              songs.push(song);
+            }
+          });
+          commit("setActivePlaylist", songs);
+        });
+    },
+
     // USER AUTHENTICATION
     register({ commit, dispatch }, user) {
       firebase
