@@ -39,9 +39,9 @@
             <div class="card-deck py-4">
               <div class="card text-white bg-dark" style="max-width: 40rem;">
                 <div class="card-body">
-                  <h3 class="card-title">{{song.artistName}}</h3>
-                  <h3 class="card-title">{{song.trackName}}</h3>
-                  <h3 class="card-title">{{song.collectionName}}</h3>
+                  <h4 class="card-title">{{song.artistName}}</h4>
+                  <h4 class="card-title">{{song.trackName}}</h4>
+                  <h4 class="card-title">{{song.collectionName}}</h4>
                   <img :src=song.artworkUrl100>
                   <audio controls id="myTune">
                     <source :src=song.previewUrl type="audio/mpeg">
