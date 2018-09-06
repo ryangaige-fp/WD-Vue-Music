@@ -18,7 +18,8 @@ let store = new vuex.Store({
     user: {},
     songs: [],
     myPlaylists: [],
-    activePlaylist: {}
+    activePlaylist: {},
+    AddPlaylists: []
   },
   mutations: {
     setUser(state, user) {
@@ -32,6 +33,9 @@ let store = new vuex.Store({
     },
     setActivePlaylist(state, playlist) {
       state.activePlaylist = playlist;
+    },
+    setAddPlaylists(state, songs) {
+      state.AddPlaylists = songs;
     }
   },
   actions: {
@@ -85,25 +89,20 @@ let store = new vuex.Store({
               playlists.push(playlist);
             }
           });
-          commit("setMyPlaylist", playlists);
+          commit("setMyPlaylists", playlists);
         });
     },
 
-    addToPlaylist({ state, commit, dispatch }) {
-      db.collection("songs")
-        .where("songs", "==", state.playlist.id)
-        .get()
-        .then(querySnapShot => {
-          let songs = [];
-          querySnapShot.forEach(doc => {
-            if (doc.exist) {
-              let songs = doc.data();
-              songs.id = doc.id;
-              songs.push(song);
-            }
-          });
-          commit("setActivePlaylist", songs);
+    addToPlaylist({ state, commit, dispatch }, songs) {
+      db.collection("playlists.id")
+        .add(songs)
+        .then(doc => {
+          dispatch("getMyPlaylists");
         });
+    },
+
+    changeActivePlaylist({ commit, dispatch }, playlist) {
+      commit("setActivePlaylist", playlist);
     },
 
     // USER AUTHENTICATION

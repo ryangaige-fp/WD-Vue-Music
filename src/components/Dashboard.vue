@@ -1,63 +1,85 @@
 <template>
+
   <div class="dashboard row justify-content-around ">
-    <div class="col-12 ">
-      <h1 class="col-12 title">Music</h1>
-    </div>
-    <div class="col-4 ">
-      <form @submit.prevent="search(query); query = '';">
-        <div class="form-group">
-          <label for="name">Search</label>
-          <input class="form-control" type="text" id="query" v-model="query">
-        </div>
-        <button class="btn btn-dark margin-bottom" type="submit">Search</button>
-      </form>
-    </div>
 
-    <!-- my playlist -->
-    <div class="sidenav">
-      <div class="col-12">
-        <div class="row">
-          <div class="form pb-4">
-            <form @submit.prevent="createPlaylist(); newPlaylist = {}">
-              <input type="text" name="title" id="title" v-model="newPlaylist.title" required>
-              <button type="submit">Create Playlist</button>
-            </form>
-          </div>
-        </div>
+    <div class="nav">
+      <!-- search -->
+      <div class="col-12 ">
+        <h1 class="col-12 title">Music</h1>
       </div>
-
-      <div class="container-fluid">
-        <div class="row">
-          <div class="col-4 playlistTitle" v-for="playlist in myPlaylists">
-            <button class="btn btn-raised btn-sm">{{playlist.title}}</button>
+      <div class="col-12 ">
+        <form @submit.prevent="search(query); query = '';">
+          <div class="form-group">
+            <label for="name">Search</label>
+            <input class="form-control" type="text" id="query" v-model="query">
           </div>
-        </div>
+          <button class="btn btn-dark margin-bottom" type="submit">Search</button>
+        </form>
       </div>
     </div>
 
-    <div class="col-12 ">
-      <div class="container ">
-        <div class="row justify-content-between">
-          <div class="col-4" v-for="song in songs">
-            <div class="card-deck py-4">
-              <div class="card text-white bg-dark" style="max-width: 40rem;">
-                <div class="card-body">
-                  <h4 class="card-title">{{song.artistName}}</h4>
-                  <h4 class="card-title">{{song.trackName}}</h4>
-                  <h5 class="card-title">{{song.collectionName}}</h5>
-                  <img :src=song.artworkUrl100>
-                  <audio controls id="myTune">
-                    <source :src=song.previewUrl type="audio/mpeg">
-                  </audio>
 
-                  <button class="btn btn-light mx-2" @click="addToPlaylist(songs)"><i class="fas fa-plus"> Add to Playlist</i></button>
+
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col">
+          <!-- my playlist -->
+          <div class="sidenav">
+            <div class="col-12">
+              <div class="row">
+                <div class="form pb-4">
+                  <form @submit.prevent="createPlaylist(); newPlaylist = {}">
+                    <input type="text" name="title" id="title" v-model="newPlaylist.title" required>
+                    <button type="submit">Create Playlist</button>
+                  </form>
+                </div>
+              </div>
+            </div>
+
+            <div class="container-fluid">
+              <div class="row">
+                <div class="col-4 playlistTitle" v-for="playlist in myPlaylists">
+                  <button class="btn btn-raised btn-sm active" aria-pressed="true" @click="changeActivePlaylist(playlist)">{{playlist.title}}</button>
                 </div>
               </div>
             </div>
           </div>
         </div>
+
+
+        <div class="col-7">
+
+
+          <!-- results -->
+          <div class="col-12 ">
+            <div class="container-fluid songColumn ">
+              <div class="row justify-content-between">
+                <div class="col-4" v-for="song in songs">
+                  <div class="card-deck py-4">
+                    <div class="card text-white bg-dark" style="max-width: 40rem;">
+                      <div class="card-body">
+                        <h4 class="card-title">{{song.artistName}}</h4>
+                        <h4 class="card-title">{{song.trackName}}</h4>
+                        <h5 class="card-title">{{song.collectionName}}</h5>
+                        <img :src=song.artworkUrl100>
+                        <audio controls id="myTune">
+                          <source :src=song.previewUrl type="audio/mpeg">
+                        </audio>
+
+                        <button class="btn btn-light mx-2" v-if="activePlaylist.id" @click="addToPlaylist(song)"><i class="fas fa-plus">
+                            Add to Playlist</i></button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
       </div>
     </div>
+
   </div>
 
 </template>
@@ -74,6 +96,7 @@
 
     mounted() {
       this.$store.dispatch('getPlaylists')
+      this.$store.dispatch('getMyPlaylists')
     },
     computed: {
       songs() {
@@ -85,9 +108,9 @@
       myPlaylists() {
         return this.$store.state.myPlaylists
       },
-      addToPlaylist() {
+      activePlaylist() {
         return this.$store.state.activePlaylist
-      }
+      },
     },
     methods: {
       search(query) {
@@ -96,12 +119,26 @@
       createPlaylist() {
         this.newPlaylist.user = this.user.email
         this.$store.dispatch('createPlaylist', this.newPlaylist)
+      },
+      changeActivePlaylist(playlist) {
+        this.$store.dispatch('changeActivePlaylist', playlist)
+      },
+      addToPlaylist(song) {
+        this.$store.dispatch('addToPlaylist', songs)
       }
     }
   }
 </script>
 
 <style scoped>
+  .songColumn {
+    width: 100%
+  }
+
+  .jumboStyle {
+    width: 85%
+  }
+
   .margin-bottom {
     margin-bottom: 2rem;
   }
@@ -127,11 +164,11 @@
   .sidenav {
     height: 100%;
     width: auto;
-    position: fixed;
+    position: inherit;
     z-index: 1;
     top: 0;
     left: 0;
-    background-color: blue;
+    background-color: rgba(0, 123, 255, 0.37);
     overflow-x: hidden;
     padding-top: 2rem;
   }
