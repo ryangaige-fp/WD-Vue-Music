@@ -18,6 +18,7 @@ let store = new vuex.Store({
     user: {},
     songs: [],
     myPlaylists: [],
+    mySongs: [],
     activePlaylist: {},
     AddPlaylists: {}
   },
@@ -35,7 +36,11 @@ let store = new vuex.Store({
       state.activePlaylist = playlist;
     },
     setAddPlaylists(state, songs) {
-      state.AddPlaylists = songs;
+      state.mySongs = songs;
+    },
+
+    setMysongs(state, songs) {
+      state.activePlaylist = songs;
     }
   },
   actions: {
@@ -122,7 +127,7 @@ let store = new vuex.Store({
               songs.push(song);
             }
           });
-          commit("setAddPlaylist", songs);
+          commit("setMySongs", songs);
         });
     },
 

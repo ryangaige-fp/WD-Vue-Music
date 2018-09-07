@@ -4,7 +4,8 @@
 
     <div class="parallax">
       <!-- search -->
-      <div class="row">
+
+      <div class="row ">
         <div class="col-2"></div>
         <div class="col-8">
           <h1 class="col-12 subtitle">Music is </h1>
@@ -23,6 +24,7 @@
           </form>
         </div>
       </div>
+
 
 
 
@@ -60,7 +62,7 @@
               <div class="col-12 ">
                 <div class="container-fluid  ">
                   <div class="row justify-content-between">
-                    <div class="col-6" v-for="song in activePlaylist">
+                    <div class="col-6" v-for="song in mySongs">
                       <div class="card-deck py-4">
                         <div class="card text-white bg-dark" style="max-width: 40rem;">
                           <div class="card-body">
@@ -99,15 +101,16 @@
                         <div class="card text-white bg-dark cardStyle" style="max-width: 40rem;">
                           <div class="card-body">
                             <img :src=song.artworkUrl100>
-                            <h4 class="card-title">{{song.artistName}}</h4>
-                            <h4 class="card-title">{{song.trackName}}</h4>
-                            <h5 class="card-title">{{song.collectionName}}</h5>
+                            <h5 class="card-title">{{song.artistName}}</h5>
+                            <h5 class="card-title">{{song.trackName}}</h5>
+                            <h6 class="card-title">{{song.collectionName}}</h6>
 
                             <audio class="audioSize" controls id="myTune">
                               <source :src=song.previewUrl type="audio/mpeg">
                             </audio>
 
-                            <button class="btn btn-light mx-2" v-if="activePlaylist.id" @click="addToPlaylist(song)"><i class="fas fa-plus">
+                            <button class="btn btn-light mx-2 btn-sm" v-if="activePlaylist.id" @click="addToPlaylist(song)"><i
+                                class="fas fa-plus">
                                 Add to Playlist</i></button>
                           </div>
                         </div>

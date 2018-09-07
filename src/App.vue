@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <nav class="navbar navbar-light bg-light position: fixed">
+    <nav class="navbar navbar-light bg-light position: sticky-top">
       <button class="btn btn-outline-dark" @click="logout" v-if="user.email">Logout</button>
     </nav>
     <div>
