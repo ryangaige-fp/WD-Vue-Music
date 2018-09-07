@@ -36,11 +36,11 @@ let store = new vuex.Store({
       state.activePlaylist = playlist;
     },
     setAddPlaylists(state, songs) {
-      state.mySongs = songs;
+      state.AddPlaylists = songs;
     },
 
     setMysongs(state, songs) {
-      state.activePlaylist = songs;
+      state.mySongs = songs;
     }
   },
   actions: {
@@ -119,15 +119,15 @@ let store = new vuex.Store({
         .where("playlistId", "==", state.activePlaylist.id)
         .get()
         .then(querySnapShot => {
-          let songs = [];
+          let mySongs = [];
           querySnapShot.forEach(doc => {
             if (doc.exist) {
               let song = doc.data();
               song.id - doc.id;
-              songs.push(song);
+              mySongs.push(song);
             }
           });
-          commit("setMySongs", songs);
+          commit("setMySongs", mySongs);
         });
     },
 

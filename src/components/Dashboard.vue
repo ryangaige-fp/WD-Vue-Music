@@ -102,8 +102,8 @@
                           <div class="card-body">
                             <img :src=song.artworkUrl100>
                             <h5 class="card-title">{{song.artistName}}</h5>
-                            <h5 class="card-title">{{song.trackName}}</h5>
-                            <h6 class="card-title">{{song.collectionName}}</h6>
+                            <h5 class="card-title text-truncate">{{song.trackName}}</h5>
+                            <h6 class="card-title overflowStyle text-truncate">{{song.collectionName}}</h6>
 
                             <audio class="audioSize" controls id="myTune">
                               <source :src=song.previewUrl type="audio/mpeg">
@@ -161,6 +161,9 @@
       activePlaylist() {
         return this.$store.state.activePlaylist
       },
+      mySongs() {
+        return this.$store.state.mySongs
+      }
     },
     methods: {
       search(query) {
@@ -248,7 +251,7 @@
   }
 
   .card {
-    height: 20rem;
+    height: 24rem;
   }
 
   .playlistTitle {
@@ -267,6 +270,12 @@
 
   .audioSize {
     width: 100%;
+  }
+
+  .overflowStyle {
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    width: 100%
   }
 
   /* .musicSyle {
