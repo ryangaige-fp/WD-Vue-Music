@@ -1,8 +1,10 @@
 <template>
   <div id="app">
-    <button class="btn btn-outline-dark" @click="logout" v-if="user.email">Logout</button>
+    <nav class="navbar navbar-light bg-light position: fixed">
+      <button class="btn btn-outline-dark" @click="logout" v-if="user.email">Logout</button>
+    </nav>
     <div>
-      <img class="logo" src="./assets/logo.svg">
+      <!-- <img class="logo" src="./assets/logo.svg"> -->
     </div>
     <router-view/>
   </div>
@@ -26,7 +28,8 @@
 
 <style>
   body {
-    background-color: gray
+    background-color: gray;
+
   }
 
   .logo {
@@ -38,7 +41,7 @@
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     text-align: center;
-    color: #2c3e50;
-    margin-top: 60px;
+    color: #2783df;
+
   }
 </style>

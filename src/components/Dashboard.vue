@@ -2,79 +2,125 @@
 
   <div class="dashboard row justify-content-around ">
 
-    <div class="nav">
+    <div class="parallax">
       <!-- search -->
-      <div class="col-12 ">
-        <h1 class="col-12 title">Music</h1>
-      </div>
-      <div class="col-12 ">
-        <form @submit.prevent="search(query); query = '';">
-          <div class="form-group">
-            <label for="name">Search</label>
-            <input class="form-control" type="text" id="query" v-model="query">
-          </div>
-          <button class="btn btn-dark margin-bottom" type="submit">Search</button>
-        </form>
-      </div>
-    </div>
-
-
-
-    <div class="container-fluid">
       <div class="row">
-        <div class="col">
-          <!-- my playlist -->
-          <div class="sidenav">
-            <div class="col-12">
-              <div class="row">
-                <div class="form pb-4">
-                  <form @submit.prevent="createPlaylist(); newPlaylist = {}">
-                    <input type="text" name="title" id="title" v-model="newPlaylist.title" required>
-                    <button type="submit">Create Playlist</button>
-                  </form>
-                </div>
-              </div>
+        <div class="col-2"></div>
+        <div class="col-8">
+          <h1 class="col-12 subtitle">Music is </h1>
+          <h1 class="col-12 title"><span class="underline underlineWhite nothingYouCould">my balance</span></h1>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-2"></div>
+        <div class="col-8 ">
+          <form @submit.prevent="search(query); query = '';">
+            <div class="form-group">
+              <label for="name"></label>
+              <input class="form-control" type="text" id="query" v-model="query" placeholder="search for tunes">
             </div>
+            <button class="btn btn-dark margin-bottom" type="submit">Search</button>
+          </form>
+        </div>
+      </div>
 
-            <div class="container-fluid">
-              <div class="row">
-                <div class="col-4 playlistTitle" v-for="playlist in myPlaylists">
-                  <button class="btn btn-raised btn-sm active" aria-pressed="true" @click="changeActivePlaylist(playlist)">{{playlist.title}}</button>
+
+
+
+      <div class="container-fluid">
+        <div class="row">
+
+          <div class="sticky">
+            <div class="col">
+              <!-- my playlist -->
+              <!-- <div class="sidenav"> -->
+              <div class="col-12">
+                <div class="row justify-content-center">
+                  <div class="form pb-4">
+                    <form @submit.prevent="createPlaylist(); newPlaylist = {}">
+                      <input type="text" name="title" id="title" v-model="newPlaylist.title" required>
+                      <button type="submit">Create Playlist</button>
+                    </form>
+                  </div>
                 </div>
               </div>
+
+              <div class="container-fluid">
+                <div class="row justify-content-center">
+                  <div class="col-12">
+                    <h3 class="currentPlay">Current Playlists</h3>
+                  </div>
+                  <div class="col-4 playlistTitle" v-for="playlist in myPlaylists">
+                    <button class="btn btn-raised btn-sm active" aria-pressed="true" @click="changeActivePlaylist(playlist)">{{playlist.title}}</button>
+                  </div>
+                </div>
+              </div>
+
+              <!-- active playlist -->
+              <div class="col-12 ">
+                <div class="container-fluid  ">
+                  <div class="row justify-content-between">
+                    <div class="col-6" v-for="song in activePlaylist">
+                      <div class="card-deck py-4">
+                        <div class="card text-white bg-dark" style="max-width: 40rem;">
+                          <div class="card-body">
+                            <h4 class="card-title">{{song.artistName}}</h4>
+                            <h4 class="card-title">{{song.trackName}}</h4>
+                            <h5 class="card-title">{{song.collectionName}}</h5>
+                            <img :src=song.artworkUrl100>
+                            <audio controls id="myTune">
+                              <source :src=song.previewUrl type="audio/mpeg">
+                            </audio>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+
+
+
             </div>
           </div>
-        </div>
 
 
-        <div class="col-7">
+          <div class="col-7">
 
 
-          <!-- results -->
-          <div class="col-12 ">
-            <div class="container-fluid songColumn ">
-              <div class="row justify-content-between">
-                <div class="col-4" v-for="song in songs">
-                  <div class="card-deck py-4">
-                    <div class="card text-white bg-dark" style="max-width: 40rem;">
-                      <div class="card-body">
-                        <h4 class="card-title">{{song.artistName}}</h4>
-                        <h4 class="card-title">{{song.trackName}}</h4>
-                        <h5 class="card-title">{{song.collectionName}}</h5>
-                        <img :src=song.artworkUrl100>
-                        <audio controls id="myTune">
-                          <source :src=song.previewUrl type="audio/mpeg">
-                        </audio>
+            <!-- results -->
+            <div class="main">
+              <div class="col-12 ">
+                <div class="container-fluid  ">
+                  <div class="row justify-content-between">
+                    <div class="col-4" v-for="song in songs">
+                      <div class="card-deck py-4">
+                        <div class="card text-white bg-dark" style="max-width: 40rem;">
+                          <div class="card-body">
+                            <h4 class="card-title">{{song.artistName}}</h4>
+                            <h4 class="card-title">{{song.trackName}}</h4>
+                            <h5 class="card-title">{{song.collectionName}}</h5>
+                            <img :src=song.artworkUrl100>
+                            <audio controls id="myTune">
+                              <source :src=song.previewUrl type="audio/mpeg">
+                            </audio>
 
-                        <button class="btn btn-light mx-2" v-if="activePlaylist.id" @click="addToPlaylist(song)"><i class="fas fa-plus">
-                            Add to Playlist</i></button>
+                            <button class="btn btn-light mx-2" v-if="activePlaylist.id" @click="addToPlaylist(song)"><i class="fas fa-plus">
+                                Add to Playlist</i></button>
+                          </div>
+                        </div>
                       </div>
                     </div>
                   </div>
                 </div>
               </div>
             </div>
+
           </div>
+
+
+
         </div>
 
       </div>
@@ -96,7 +142,7 @@
 
     mounted() {
       this.$store.dispatch('getPlaylists')
-      this.$store.dispatch('getMyPlaylists')
+      this.$store.dispatch('getMyPlaylist')
     },
     computed: {
       songs() {
@@ -124,13 +170,40 @@
         this.$store.dispatch('changeActivePlaylist', playlist)
       },
       addToPlaylist(song) {
-        this.$store.dispatch('addToPlaylist', songs)
+        this.$store.dispatch('addToPlaylist', song)
       }
     }
   }
 </script>
 
 <style scoped>
+  .parallax {
+    background-image: url("../assets/headphones.jpg");
+    min-height: 500px;
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    width: 100%
+  }
+
+  .sticky {
+    width: 35%;
+    height: 150vh;
+    background: rgba(63, 63, 63, 0.40);
+    padding-top: 2rem;
+    position: -webkit-sticky;
+    position: sticky;
+    top: 0;
+    border-radius: 2rem;
+
+
+  }
+
+  .main {
+    height: 100%
+  }
+
   .songColumn {
     width: 100%
   }
@@ -149,7 +222,25 @@
   }
 
   .title {
-    font-size: 4rem
+    font-size: 7rem;
+    color: white
+  }
+
+  .underline {
+    border-bottom: 2px solid white;
+    display: inline-block;
+    line-height: .85
+  }
+
+  @import url('https://fonts.googleapis.com/css?family=Nothing+You+Could+Do');
+  .nothingYouCould {
+    font-family: 'Nothing You Could Do', cursive;
+  }
+
+
+  .subtitle {
+    font-size: 6rem;
+    color: white
   }
 
   .card {
@@ -161,16 +252,8 @@
   }
 
 
-  .sidenav {
-    height: 100%;
-    width: auto;
-    position: inherit;
-    z-index: 1;
-    top: 0;
-    left: 0;
-    background-color: rgba(0, 123, 255, 0.37);
-    overflow-x: hidden;
-    padding-top: 2rem;
+  .currentPlay {
+    color: white
   }
 
   /* .musicSyle {
