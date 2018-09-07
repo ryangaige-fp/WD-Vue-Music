@@ -19,7 +19,7 @@
               <label for="name"></label>
               <input class="form-control" type="text" id="query" v-model="query" placeholder="search for tunes">
             </div>
-            <button class="btn btn-dark margin-bottom" type="submit">Search</button>
+            <button class="btn btn-info margin-bottom" type="submit">Search</button>
           </form>
         </div>
       </div>
@@ -32,8 +32,8 @@
 
           <div class="sticky">
             <div class="col">
+
               <!-- my playlist -->
-              <!-- <div class="sidenav"> -->
               <div class="col-12">
                 <div class="row justify-content-center">
                   <div class="form pb-4">
@@ -51,7 +51,7 @@
                     <h3 class="currentPlay">Current Playlists</h3>
                   </div>
                   <div class="col-4 playlistTitle" v-for="playlist in myPlaylists">
-                    <button class="btn btn-raised btn-sm active" aria-pressed="true" @click="changeActivePlaylist(playlist)">{{playlist.title}}</button>
+                    <button class="btn btn-info btn-raised btn-sm " aria-pressed="true" @click="changeActivePlaylist(playlist)">{{playlist.title}}</button>
                   </div>
                 </div>
               </div>
@@ -96,13 +96,14 @@
                   <div class="row justify-content-between">
                     <div class="col-4" v-for="song in songs">
                       <div class="card-deck py-4">
-                        <div class="card text-white bg-dark" style="max-width: 40rem;">
+                        <div class="card text-white bg-dark cardStyle" style="max-width: 40rem;">
                           <div class="card-body">
+                            <img :src=song.artworkUrl100>
                             <h4 class="card-title">{{song.artistName}}</h4>
                             <h4 class="card-title">{{song.trackName}}</h4>
                             <h5 class="card-title">{{song.collectionName}}</h5>
-                            <img :src=song.artworkUrl100>
-                            <audio controls id="myTune">
+
+                            <audio class="audioSize" controls id="myTune">
                               <source :src=song.previewUrl type="audio/mpeg">
                             </audio>
 
@@ -142,7 +143,7 @@
 
     mounted() {
       this.$store.dispatch('getPlaylists')
-      this.$store.dispatch('getMyPlaylist')
+      // this.$store.dispatch('getMyPlaylist')
     },
     computed: {
       songs() {
@@ -254,6 +255,15 @@
 
   .currentPlay {
     color: white
+  }
+
+  .cardStyle {
+    border-radius: 2rem;
+    height: 20rem
+  }
+
+  .audioSize {
+    width: 100%;
   }
 
   /* .musicSyle {
