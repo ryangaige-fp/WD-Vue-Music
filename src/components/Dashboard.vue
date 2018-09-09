@@ -14,7 +14,7 @@
       </div>
       <div class="row">
         <div class="col-2"></div>
-        <div class="col-8 ">
+        <div class="col-8">
           <form @submit.prevent="search(query); query = '';">
             <div class="form-group">
               <label for="name"></label>
@@ -62,11 +62,11 @@
               <div class="col-12 ">
                 <div class="container-fluid  ">
                   <div class="row justify-content-between">
-                    <div class="col-6" v-for="song in mySongs">
+                    <div class="col-6" v-for="song in Playlists">
                       <div class="card-deck py-4">
                         <div class="card text-white bg-dark" style="max-width: 40rem;">
                           <div class="card-body">
-                            <h4 class="card-title">{{song.artistName}}</h4>
+                            <h4 class="card-title">{{playlists.song.artistName}}</h4>
                             <h4 class="card-title">{{song.trackName}}</h4>
                             <h5 class="card-title">{{song.collectionName}}</h5>
                             <img :src=song.artworkUrl100>
