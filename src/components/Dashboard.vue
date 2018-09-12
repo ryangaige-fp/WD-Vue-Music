@@ -62,11 +62,11 @@
               <div class="col-12 ">
                 <div class="container-fluid  ">
                   <div class="row justify-content-between">
-                    <div class="col-6" v-for="song in Playlists">
+                    <div class="col-6" v-for="song in mySongs ">
                       <div class="card-deck py-4">
                         <div class="card text-white bg-dark" style="max-width: 40rem;">
                           <div class="card-body">
-                            <h4 class="card-title">{{playlists.song.artistName}}</h4>
+                            <h4 class="card-title">{{song.artistName}}</h4>
                             <h4 class="card-title">{{song.trackName}}</h4>
                             <h5 class="card-title">{{song.collectionName}}</h5>
                             <img :src=song.artworkUrl100>
@@ -101,7 +101,7 @@
                         <div class="card text-white bg-dark cardStyle" style="max-width: 40rem;">
                           <div class="card-body">
                             <img :src=song.artworkUrl100>
-                            <h5 class="card-title">{{song.artistName}}</h5>
+                            <h5 class="card-title text-truncate">{{song.artistName}}</h5>
                             <h5 class="card-title text-truncate">{{song.trackName}}</h5>
                             <h6 class="card-title overflowStyle text-truncate">{{song.collectionName}}</h6>
 
@@ -240,6 +240,7 @@
   }
 
   @import url('https://fonts.googleapis.com/css?family=Nothing+You+Could+Do');
+
   .nothingYouCould {
     font-family: 'Nothing You Could Do', cursive;
   }
@@ -276,6 +277,19 @@
     white-space: nowrap;
     text-overflow: ellipsis;
     width: 100%
+  }
+
+  .card-body {
+    -ms-flex: 1 1 auto;
+    flex: 1 1 auto;
+    padding-top: 1.25rem;
+    padding-bottom: 1.25rem;
+    padding-right: 1.25rem;
+    padding-left: 1.10rem;
+    justify-content: center;
+    align-items: center;
+    justify-items: center;
+    align-content: center;
   }
 
   /* .musicSyle {

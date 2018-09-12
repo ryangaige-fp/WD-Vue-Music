@@ -39,7 +39,7 @@ let store = new vuex.Store({
       state.AddPlaylists = songs;
     },
 
-    setMysongs(state, songs) {
+    setMySongs(state, songs) {
       state.mySongs = songs;
     }
   },
@@ -121,9 +121,9 @@ let store = new vuex.Store({
         .then(querySnapShot => {
           let mySongs = [];
           querySnapShot.forEach(doc => {
-            if (doc.exist) {
+            if (doc.exists) {
               let song = doc.data();
-              song.id - doc.id;
+              song.id = doc.id;
               mySongs.push(song);
             }
           });
