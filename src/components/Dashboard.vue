@@ -53,7 +53,8 @@
                     <h3 class="currentPlay">Current Playlists</h3>
                   </div>
                   <div class="col-4 playlistTitle" v-for="playlist in myPlaylists">
-                    <button class="btn btn-info btn-raised btn-sm " aria-pressed="true" @click="changeActivePlaylist(playlist)">{{playlist.title}}</button>
+                    <button class="btn btn-info btn-raised btn-sm " aria-pressed="true"
+                      @click="changeActivePlaylist(playlist)">{{playlist.title}}</button>
                   </div>
                 </div>
               </div>
@@ -109,8 +110,8 @@
                               <source :src=song.previewUrl type="audio/mpeg">
                             </audio>
 
-                            <button class="btn btn-light mx-2 btn-sm" v-if="activePlaylist.id" @click="addToPlaylist(song)"><i
-                                class="fas fa-plus">
+                            <button class="btn btn-light mx-2 btn-sm" v-if="activePlaylist.id"
+                              @click="addToPlaylist(song)"><i class="fas fa-plus">
                                 Add to Playlist</i></button>
                           </div>
                         </div>
@@ -181,6 +182,7 @@
       }
     }
   }
+
 </script>
 
 <style scoped>
@@ -306,4 +308,5 @@
     grid-column-end: 16;
 
   } */
+
 </style>
